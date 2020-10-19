@@ -315,8 +315,7 @@ int flag;
            break;
 
         case ASN_OBJECT_ID:
-          __sprint_num_objid(buf, (oid *)(var->val.objid),
-                             var->val_len/sizeof(oid));
+          __sprint_num_objid(buf, (oid *)(var->val.objid), var->val_len/sizeof(oid));
           len = STRLEN(buf);
           break;
 
@@ -953,8 +952,7 @@ retry:
             /* in SNMPv2c, SNMPv2u, SNMPv2*, and SNMPv3 PDUs */
             case SNMP_ERR_INCONSISTENTNAME:
             default:
-               strlcpy(err_str, (char*)snmp_errstring((*response)->errstat),
-           STR_BUF_SIZE);
+               strlcpy(err_str, (char*)snmp_errstring((*response)->errstat), STR_BUF_SIZE);
                *err_num = (int)(*response)->errstat;
          *err_ind = (*response)->errindex;
                status = (*response)->errstat;
