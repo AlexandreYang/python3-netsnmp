@@ -18,7 +18,11 @@
 #ifdef I_SYS_TIME
 #include <sys/time.h>
 #endif
+
+#ifdef HAVE_NETDB_H
 #include <netdb.h>
+#endif
+
 #include <stdlib.h>
 
 #ifdef HAVE_REGEX_H
