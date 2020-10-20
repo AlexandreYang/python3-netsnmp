@@ -805,16 +805,16 @@ __add_var_val_str(pdu, name, name_length, val, len, type)
       case TYPE_GAUGE:
       case TYPE_UNSIGNED32:
         vars->type = ASN_GAUGE;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_COUNTER:
         vars->type = ASN_COUNTER;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_TIMETICKS:
         vars->type = ASN_TIMETICKS;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_UINTEGER:
         vars->type = ASN_UINTEGER;
-UINT:
+UINT_LABEL:
         vars->val.integer = malloc(sizeof(long));
         if (val)
             sscanf(val,"%lu",vars->val.integer);
