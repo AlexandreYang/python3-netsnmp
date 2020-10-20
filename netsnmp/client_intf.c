@@ -805,16 +805,16 @@ __add_var_val_str(pdu, name, name_length, val, len, type)
       case TYPE_GAUGE:
       case TYPE_UNSIGNED32:
         vars->type = ASN_GAUGE;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_COUNTER:
         vars->type = ASN_COUNTER;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_TIMETICKS:
         vars->type = ASN_TIMETICKS;
-        goto UINT;
+        goto UINT_LABEL;
       case TYPE_UINTEGER:
         vars->type = ASN_UINTEGER;
-UINT: ;
+UINT_LABEL:
         vars->val.integer = malloc(sizeof(long));
         if (val)
             sscanf(val,"%lu",vars->val.integer);
@@ -835,7 +835,7 @@ UINT: ;
 
       case TYPE_OPAQUE:
         vars->type = ASN_OCTET_STR;
-OCT: ;
+OCT:
         vars->val.string = malloc(len);
         vars->val_len = len;
         if (val && len)
@@ -911,7 +911,7 @@ __send_sync_pdu(netsnmp_session *ss, netsnmp_pdu *pdu, netsnmp_pdu **response,
        goto done;
    }
 
-retry: ;
+retry:
 
    Py_BEGIN_ALLOW_THREADS
    status = snmp_sess_synch_response(ss, pdu, response);
@@ -971,7 +971,7 @@ retry: ;
          *err_num = ss->s_snmp_errno;
          break;
    }
-done: ;
+done:
    if (tmp_err_str) {
     free(tmp_err_str);
    }
@@ -1203,7 +1203,7 @@ netsnmp_create_session(PyObject *self, PyObject *args)
     PyErr_SetString(exception(self), snmp_api_errstring(snmp_errno));
   }
 
-end: ;
+end:
   if (PyErr_Occurred()) {
     return NULL;
   }
@@ -1340,11 +1340,11 @@ netsnmp_create_session_v3(PyObject *self, PyObject *args)
 
   ss = snmp_sess_open(&session);
 
-error: ;
+error:
   if (ss == NULL) {
     PyErr_SetString(exception(self), snmp_api_errstring(snmp_errno));
   }
-end: ;
+end:
   free (session.securityEngineID);
   free (session.contextEngineID);
 
@@ -1681,7 +1681,7 @@ netsnmp_get(PyObject *self, PyObject *args)
     if (response) snmp_free_pdu(response);
   }
 
-done: ;
+done:
   SAFE_FREE(oid_arr);
   return (val_tuple ? val_tuple : Py_BuildValue(""));
 }
@@ -1901,7 +1901,7 @@ netsnmp_getnext(PyObject *self, PyObject *args)
     if (response) snmp_free_pdu(response);
   }
 
-done: ;
+done:
   SAFE_FREE(oid_arr);
   return (val_tuple ? val_tuple : Py_BuildValue(""));
 }
@@ -2160,7 +2160,7 @@ netsnmp_walk(PyObject *self, PyObject *args)
                We need to give up here because an infite
                loop will result otherwise.
 
-XXX: ;
+XXX: this really should be an option to
 continue like the -Cc option to the snmpwalk
 application.
 */
@@ -2249,7 +2249,7 @@ application.
     }
   }
 
-done: ;
+done:
   Py_XDECREF(varbinds);
   SAFE_FREE(oid_arr_len);
   SAFE_FREE(oid_arr_broken_check_len);
@@ -2502,7 +2502,7 @@ netsnmp_getbulk(PyObject *self, PyObject *args)
     }
   }
 
-done: ;
+done:
   SAFE_FREE(oid_arr);
   return (val_tuple ? val_tuple : Py_BuildValue(""));
 }
@@ -2643,7 +2643,7 @@ netsnmp_set(PyObject *self, PyObject *args)
     else
       ret = Py_BuildValue("i",0); /* fail, return False */
   }
-done: ;
+done:
   Py_XDECREF(varbind);
   SAFE_FREE(oid_arr);
   return (ret ? ret : Py_BuildValue(""));
