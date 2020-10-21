@@ -11,7 +11,8 @@ for arg in args:
         basedir = string.split(arg,'=')[1]
         sys.argv.remove(arg)
 
-netsnmp_libs = os.popen('net-snmp-config --libs').read()
+# netsnmp_libs = os.popen('net-snmp-config --libs').read()
+netsnmp_libs = ""
 libdirs = re.findall(r" -L(\S+)", netsnmp_libs)
 incdirs = []
 libs = re.findall(r" -l(\S+)", netsnmp_libs)
