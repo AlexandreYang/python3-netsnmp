@@ -16,6 +16,7 @@ netsnmp_libs = ""
 libdirs = re.findall(r" -L(\S+)", netsnmp_libs)
 incdirs = []
 # libs = re.findall(r" -l(\S+)", netsnmp_libs)
+# TODO: Should be set at build level instead
 libs = re.findall(r" -l(\S+)", netsnmp_libs) + [
     'netsnmp',
     # 'netsnmpagent',
