@@ -15,7 +15,14 @@ for arg in args:
 netsnmp_libs = ""
 libdirs = re.findall(r" -L(\S+)", netsnmp_libs)
 incdirs = []
-libs = re.findall(r" -l(\S+)", netsnmp_libs)
+# libs = re.findall(r" -l(\S+)", netsnmp_libs)
+libs = re.findall(r" -l(\S+)", netsnmp_libs) + [
+    'netsnmp',
+    # 'netsnmpagent',
+    # 'netsnmphelpers',
+    # 'netsnmpmibs',
+    # 'netsnmptrapd',
+]
 
 setup(
     name="python3-netsnmp", version="1.1a1",
